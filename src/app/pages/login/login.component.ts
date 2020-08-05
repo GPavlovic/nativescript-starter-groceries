@@ -1,5 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Router } from '@angular/router';
+
+import { Page, View, viewMatchesModuleContext, Color } from 'tns-core-modules/ui/page';
 
 import { User } from '../../shared/user/user';
 import { UserService } from '../../shared/user/user.service';
@@ -12,19 +14,27 @@ import { UserService } from '../../shared/user/user.service';
     templateUrl: './login.component.html',
     styleUrls: ['./login.common.css', './login.css']
 })
-export class LoginComponent
+export class LoginComponent implements OnInit
 {
     public user: User;
     public isLoggingIn = true;
+    @ViewChild('container', { static: true }) container: ElementRef;
 
     constructor(
         private router: Router,
-        private userService: UserService
+        private userService: UserService,
+        private page: Page
     )
     {
         this.user = new User();
         this.user.email = 'testlalala@test.com';
         this.user.password = 'test123';
+    }
+
+    public ngOnInit(): void
+    {
+        this.page.actionBarHidden = true;
+        this.page.backgroundImage = 'res://bg_login'
     }
 
     public submit() 
@@ -42,6 +52,11 @@ export class LoginComponent
     public toggleDisplay() 
     {
         this.isLoggingIn = !this.isLoggingIn;
+        const container = <View>this.container.nativeElement;
+        container.animate({
+            backgroundColor: this.isLoggingIn ? new Color("white") : new Color("#301217"),
+            duration: 200
+        });
     }
 
     public login()
