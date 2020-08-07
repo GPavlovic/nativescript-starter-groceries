@@ -25,3 +25,7 @@ ListView {
 TextField {
     color: white;
 }
+
+.item-bar {
+    padding-right: 12;
+}

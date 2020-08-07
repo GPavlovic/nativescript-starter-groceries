@@ -64,6 +64,26 @@ export class ListComponent implements OnInit
                 () =>
                 {
                     alert({
+                        message: 'An error occurred while adding an item to your list.',
+                        okButtonText: 'OK'
+                    });
+                    this.grocery = '';
+                }
+            );
+    }
+
+    public delete(index: number)
+    {
+        const groceryToDelete = this.groceryList[index];
+        this.groceryListService.delete(groceryToDelete)
+            .subscribe(
+                () =>
+                {
+                    this.groceryList.splice(index, 1)
+                },
+                () =>
+                {
+                    alert({
                         message: 'And error occurred while adding an item to your list.',
                         okButtonText: 'OK'
                     });
