@@ -19,7 +19,8 @@ export function setStatusBarColors()
     // Make the Android status bar transparent.
     // See http://bradmartin.net/2016/03/10/fullscreen-and-navigation-bar-color-in-a-nativescript-android-app/
     // for details on the technique used.
-    if (application.android && platform.device.sdkVersion >= "21")
+    if (application.android
+        && platform.device.sdkVersion >= "21")
     {
         application.android.on("activityStarted", () =>
         {
